@@ -1,0 +1,86 @@
+<div class="grid grid-cols-2 gap-6">
+    <div class="flex flex-col space-y-5">
+        <!-- Card -->
+        <div
+            class="flex flex-col bg-white border border-gray-200  border-l-4 border-l-[#721538] shadow-2xs rounded-xl">
+            <div class="p-4 md:p-5">
+                <div class="flex items-center gap-x-2">
+                    <p class="text-xs uppercase text-gray-500">
+                        Contribuyentes
+                    </p>
+
+                </div>
+
+                <div class="mt-1 flex items-center gap-x-2">
+                    <h3 class="text-xl sm:text-2xl font-medium text-gray-800">
+                        {{ summaryData.total_active_taxpayers | number }}
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div
+            class="flex flex-col bg-white border border-gray-200 border-l-4 border-l-[#721538] shadow-2xs rounded-xl">
+            <div class="p-4 md:p-5">
+                <div class="flex items-center gap-x-2">
+                    <p class="text-xs uppercase text-gray-500">
+                        Empresas
+                    </p>
+                </div>
+
+                <div class="mt-1 flex items-center gap-x-2">
+                    <h3 class="text-xl sm:text-2xl font-medium text-gray-800">
+                        {{ summaryData.total_active_companies | number }}
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <!-- End Card -->
+
+    </div>
+
+    <div class="flex flex-col space-y-5">
+
+        <!-- Card -->
+        <div
+            class="flex flex-col bg-white border border-gray-200 border-l-4 border-l-[#721538] shadow-2xs rounded-xl">
+            <div class="p-4 md:p-5">
+                <div class="flex items-center gap-x-2">
+                    <p class="text-xs uppercase text-gray-500">
+                        Declaración anual
+                    </p>
+                </div>
+
+                <div class="mt-1 flex items-center gap-x-2">
+                    <h3 class="text-xl sm:text-2xl font-medium text-gray-800">
+                        {{ summaryData.total_statements_by_year | number}}
+                    </h3>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div
+            class="flex flex-col bg-white border border-gray-200 border-l-4 border-l-[#721538] shadow-2xs rounded-xl">
+            <div class="p-4 md:p-5">
+                <div class="flex items-center gap-x-2">
+                    <p class="text-xs uppercase text-gray-500">
+                        Total declaraciones
+                    </p>
+                </div>
+
+                <div class="mt-1 flex items-center gap-x-2">
+                    <h3 class="text-xl sm:text-2xl font-medium text-gray-800">
+                        {{ summaryData.total_statements | number }}
+                    </h3>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Card -->
+    </div>
+</div>
