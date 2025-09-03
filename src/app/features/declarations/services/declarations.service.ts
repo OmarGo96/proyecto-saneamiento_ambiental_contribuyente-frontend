@@ -17,19 +17,25 @@ export class DeclarationsService {
         return this.httpClient.get(`${this.url}/statement/show`);
     }
 
-    getDeclarationsByStatus(status: any): Observable<any> {
-        return this.httpClient.get(`${this.url}/statement/index/${status}`);
+    createDeclaration(companyId: any, data: any): Observable<any> {
+        return this.httpClient.post(`${this.url}/statement/store/${companyId}`, data);
     }
 
-    validatePayment(id: any): Observable<any> {
-        return this.httpClient.get(`${this.url}/statement/check-payment/${id}`);
+    verifyDeclaration(declarationId: any): Observable<any> {
+        return this.httpClient.put(`${this.url}/statement/send-to-verify/${declarationId}`, []);
     }
 
-    processDeclaration(data: any){
-        return this.httpClient.post(`${this.url}/statement/process`, data);
+    getDeclarationReceipt(fileName: any): Observable<any> {
+        return this.httpClient.get(`${this.url}/statement/file/${fileName}/receipts`, { responseType: 'blob' });
     }
 
-    attachPaymentReceipt(declarationId: any, data: any){
-        return this.httpClient.post(`${this.url}/statement/attach-receipt/${declarationId}`, data);
+    getStatementFormat(declarationId: any): Observable<any> {
+        return this.httpClient.get(`${this.url}/statement/format/${declarationId}`, { responseType: 'blob' });
     }
+
+    deleteDeclaration(declarationId: any) {
+        return this.httpClient.delete(`${this.url}/statement/delete/${declarationId}`);
+    }
+
+
 }

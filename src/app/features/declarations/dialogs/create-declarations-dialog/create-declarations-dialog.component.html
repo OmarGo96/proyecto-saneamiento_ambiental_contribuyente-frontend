@@ -1,0 +1,62 @@
+<form [formGroup]="createStatementForm" class="space-y-3">
+    <div>
+        <label for="">Selecciona la empresa que declara</label>
+        <p-select
+            [options]="companies"
+            optionLabel="nombre_establecimiento"
+            optionValue="id"
+            placeholder="Selecciona una opción"
+            (onChange)="getOpeningByCompany($event)"
+            appendTo="body"
+            class="w-full"
+        />
+    </div>
+
+    @if (companyId) {
+        <div>
+            <label for="">Fecha a aperturar</label>
+            <p-select
+                [options]="openings"
+                formControlName="opening_id"
+                optionLabel="mes_letras"
+                optionValue="id"
+                placeholder="Selecciona una opción"
+                appendTo="body"
+                class="w-full"
+            >
+                <ng-template let-topping #item>
+                    <div>{{ topping.anio }} | {{ topping.mes_letras }}</div>
+                </ng-template>
+            </p-select>
+        </div>
+        <div>
+            <label for="">Tipo de declaración</label>
+            <p-select
+                formControlName="tipo_declaracion"
+                [options]="declarationsType"
+                optionLabel="type"
+                optionValue="value"
+                placeholder="Selecciona una opción"
+                appendTo="body"
+                class="w-full"
+            />
+        </div>
+        <div>
+            <label for="">Habitaciones ocupadas por noche durante todo el período con 1 huesped</label>
+            <p-input-number inputId="integeronly" formControlName="ocupacion1" class="w-full" />
+        </div>
+        <div>
+            <label for="">Habitaciones ocupadas por noche durante todo el período con 2 o más huespedes</label>
+            <p-input-number inputId="integeronly" formControlName="ocupacion2" class="w-full" />
+        </div>
+    }
+
+    <div>
+        <p-button
+            (click)="createDeclaration()"
+            label="Crear declaración"
+            [disabled]="isLoading"
+            [loading]="isLoading"
+        />
+    </div>
+</form>

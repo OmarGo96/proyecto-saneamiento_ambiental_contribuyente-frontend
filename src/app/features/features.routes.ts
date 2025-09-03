@@ -1,10 +1,8 @@
 import { Routes } from '@angular/router';
 import {UsersComponent} from './users/pages/users/users.component';
 import {DeclarationsComponent} from './declarations/components/declarations/declarations.component';
-import {RequestsComponent} from './requests/components/requests/requests.component';
 import {CompaniesComponent} from './companies/components/companies/companies.component';
-import {ConfigurationsComponent} from './configurations/components/configurations/configurations.component';
-import {DashboardComponent} from './dashboard/pages/dashboard/dashboard.component';
+
 
 
 export default [
@@ -29,14 +27,5 @@ export default [
     {
         path: 'usuarios',
         component: UsersComponent,
-    },
-    {
-        path: 'configuracion',
-        component: ConfigurationsComponent,
-        children: [
-            {
-                path: '', loadChildren: () => import('./configurations/configurations.routes')
-            },
-        ],
     }
 ] as Routes;

@@ -12,6 +12,10 @@ export class CompaniesService {
 
     public companyToken = 'kLV3F5ZukcIQetF3cPT3HMAPw6uU0DsH';
 
+    getCompanies(): Observable<any> {
+        return this.httpClient.get(`${this.url}/companies/show`);
+    }
+
     getCompaniesByStatus(status: any): Observable<any> {
         return this.httpClient.get(`${this.url}/companies/index/${status}`);
     }

@@ -26,18 +26,18 @@
             <section class="bg-white border rounded-xl">
                 <div class="p-5 mx-auto">
                     <h2 class="mb-2 text-xl font-semibold leading-none text-gray-900 md:text-2xl">
-                        {{ declaration.nombre_establecimiento }}
+                        {{ declaration.company.nombre_establecimiento }}
                     </h2>
                     <dl>
                         <dt class="mb-2 font-semibold leading-none text-gray-900">Licencia de funcionamiento</dt>
                         <dd class="mb-4 font-light text-gray-500 sm:mb-5">
-                            {{ declaration.licencia_funcionamiento_id }}
+                            {{ declaration.company.licencia_funcionamiento_id }}
                         </dd>
                     </dl>
                     <dl class="grid grid-cols-3">
                         <div>
                             <dt class="mb-2 font-semibold leading-none text-gray-900">Periodo de declaración</dt>
-                            <dd class="mb-4 font-light text-gray-500 sm:mb-5">{{ declaration.mes }} {{ declaration.anio }}</dd>
+                            <dd class="mb-4 font-light text-gray-500 sm:mb-5">{{ declaration.opening.anio }} {{ declaration.opening.mes_letras }}</dd>
                         </div>
                         <div>
                             <dt class="mb-2 font-semibold leading-none text-gray-900">Tipo de declaración</dt>
@@ -114,7 +114,7 @@
                         <p-button icon="pi pi-receipt" label="Pase a caja" />
                     </div>
                 </div>
-                <div class="p-5 mx-auto space-y-5 border-t">
+                <!--<div class="p-5 mx-auto space-y-5 border-t">
                     <h3 class="text-xl font-semibold ">Información de pago</h3>
 
                     <dl class="grid grid-cols-4">
@@ -138,7 +138,7 @@
                         </div>
 
                     </dl>
-                </div>
+                </div>-->
             </section>
             <p-message severity="info">Ocupación obtenida desde API</p-message>
         </div>
