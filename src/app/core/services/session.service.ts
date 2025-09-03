@@ -20,7 +20,7 @@ export class SessionService {
     }
 
     login(data: any): Observable<any> {
-        return this.httpClient.post(`${this.urlApi}/administrator/session`, data);
+        return this.httpClient.post(`${this.urlApi}/user/session`, data);
     }
 
     logout() {

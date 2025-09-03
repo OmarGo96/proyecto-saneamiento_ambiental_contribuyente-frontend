@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
 
                 sessionStorage.setItem(this.sessionService.jwtToken, token);
 
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['/declaraciones']);
 
                 this.isLoading = false;
             },

@@ -6,9 +6,14 @@ import {DeclarationsDetailsComponent} from './pages/declarations-details/declara
 import {
     DeclarationsPaymentReceiptComponent
 } from './pages/declarations-payment-receipt/declarations-payment-receipt.component';
+import {DeclarationsListComponent} from './pages/declarations-list/declarations-list.component';
 
 
 export default [
+    {
+        path: '',
+        component: DeclarationsListComponent
+    },
     {
         path: 'borradores',
         component: DeclarationsDraftComponent

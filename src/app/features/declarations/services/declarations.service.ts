@@ -13,6 +13,10 @@ export class DeclarationsService {
 
     public declarationToken = 'LJ5niqoEdiZ9DxskgY2wnlslY6EkxXiS';
 
+    getDeclarations(): Observable<any> {
+        return this.httpClient.get(`${this.url}/statement/show`);
+    }
+
     getDeclarationsByStatus(status: any): Observable<any> {
         return this.httpClient.get(`${this.url}/statement/index/${status}`);
     }
