@@ -20,7 +20,7 @@ export const MenuItems = [
         role: []
     },
     {
-        path: '/usuarios',
+        path: 'configuracion/cuenta',
         group: 'Configuración',
         module: 'configuration',
         action: 'show',

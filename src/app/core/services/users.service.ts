@@ -11,6 +11,10 @@ export class UsersService {
     private httpClient = inject(HttpClient);
 
 
+    getUser(): Observable<any>{
+        return this.httpClient.get(`${this.url}/users/show`);
+    }
+
     getUsers(): Observable<any> {
         return this.httpClient.get(`${this.url}/administrators/index/all`);
     }
@@ -19,8 +23,8 @@ export class UsersService {
         return this.httpClient.post(`${this.url}/administrators/store`, data);
     }
 
-    updateUser(userId: any, data: any): Observable<any> {
-        return this.httpClient.put(`${this.url}/administrators/update/${userId}`, data);
+    updateUser(data: any): Observable<any> {
+        return this.httpClient.put(`${this.url}/users/update`, data);
     }
 
     deleteUser(userId: any): Observable<any> {

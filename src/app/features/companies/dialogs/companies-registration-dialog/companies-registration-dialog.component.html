@@ -2,7 +2,7 @@
     <form [formGroup]="requestForm" class="space-y-5">
         <div>
             <label>Licencia de funcionamiento</label>
-            <p-input-number inputId="integeronly" formControlName="licencia_funcionamiento" class="w-full"/>
+            <p-input-number inputId="integeronly" [useGrouping]="false" formControlName="licencia_funcionamiento" class="w-full"/>
         </div>
         <div>
             <label>Nombre de la empresa y/o establecimiento</label>
@@ -33,3 +33,4 @@
         </div>
     </form>
 }
+<p-confirm-dialog />

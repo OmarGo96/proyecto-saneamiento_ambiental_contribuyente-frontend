@@ -10,6 +10,7 @@ import {ButtonModule} from 'primeng/button';
 import {ConfirmationService} from 'primeng/api';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {FileUploadModule} from 'primeng/fileupload';
+import {ConfirmDialog} from 'primeng/confirmdialog';
 
 @Component({
     selector: 'app-companies-registration-dialog',
@@ -20,7 +21,8 @@ import {FileUploadModule} from 'primeng/fileupload';
         ReactiveFormsModule,
         FileUploadModule,
         InputNumberModule,
-        ButtonModule
+        ButtonModule,
+        ConfirmDialog
     ],
     providers: [AlertsService, ConfirmationService, DialogService],
     templateUrl: './companies-registration-dialog.component.html',
@@ -77,7 +79,7 @@ export class CompaniesRegistrationDialogComponent implements OnInit {
                         },
                         error: err => {
                             this.isUploading = false;
-                            this.alertsService.errorAlert(err.error.errors);
+                            this.alertsService.errorAlert([{message: err.error.errors}]);
                         }
                     })
                 }
