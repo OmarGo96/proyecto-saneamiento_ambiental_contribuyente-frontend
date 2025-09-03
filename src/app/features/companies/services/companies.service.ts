@@ -16,12 +16,16 @@ export class CompaniesService {
         return this.httpClient.get(`${this.url}/companies/show`);
     }
 
+    getAllCompaniesByUser(): Observable<any> {
+        return this.httpClient.get(`${this.url}/companies/show/all`);
+    }
+
     getCompaniesByStatus(status: any): Observable<any> {
         return this.httpClient.get(`${this.url}/companies/index/${status}`);
     }
 
-    searchCompanies(data: any): Observable<any> {
-        return this.httpClient.post(`${this.url}/companies/search`, data);
+    requestCompanyRegistration(data: any): Observable<any> {
+        return this.httpClient.post(`${this.url}/user-request/store`, data);
     }
 
     updateBedrooms(companyId: any, data: any): Observable<any> {

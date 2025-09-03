@@ -5,9 +5,11 @@ import {AlertsService} from '../../../../core/services/alerts.service';
 import {InputGroupModule} from 'primeng/inputgroup';
 import {InputTextModule} from 'primeng/inputtext';
 import {InputGroupAddonModule} from 'primeng/inputgroupaddon';
-import {DynamicDialogRef} from 'primeng/dynamicdialog';
+import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {ButtonModule} from 'primeng/button';
 import {ConfirmationService} from 'primeng/api';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {FileUploadModule} from 'primeng/fileupload';
 
 @Component({
     selector: 'app-companies-registration-dialog',
@@ -16,9 +18,11 @@ import {ConfirmationService} from 'primeng/api';
         InputGroupAddonModule,
         InputTextModule,
         ReactiveFormsModule,
+        FileUploadModule,
+        InputNumberModule,
         ButtonModule
     ],
-    providers: [AlertsService, ConfirmationService],
+    providers: [AlertsService, ConfirmationService, DialogService],
     templateUrl: './companies-registration-dialog.component.html',
     styleUrl: './companies-registration-dialog.component.scss'
 })
@@ -29,32 +33,55 @@ export class CompaniesRegistrationDialogComponent implements OnInit {
     private alertsService = inject(AlertsService);
     private dialogRef = inject(DynamicDialogRef);
 
-    public searchForm: FormGroup;
+    public requestForm: FormGroup;
 
     public isSearching: boolean = false;
+    public isUploading: boolean = false;
+
+    public selectedFiles: any[] = [];
 
     ngOnInit() {
         this.initSearchForm();
     }
 
     initSearchForm() {
-        this.searchForm = this.formBuilder.group({
+        this.requestForm = this.formBuilder.group({
+            licencia_funcionamiento: ['', Validators.required],
             nombre_establecimiento: ['', [Validators.required, Validators.minLength(4)]]
         });
     }
 
-    searchCompany(){
-        this.isSearching = true;
-        const data = this.searchForm.value;
-        this.companiesService.searchCompanies(data).subscribe({
-            next: data => {
-                this.isSearching = false;
-                this.dialogRef.close(data.companies);
-            },
-            error: err => {
-                this.isSearching = false;
-                this.alertsService.errorAlert([{message: err.error.errors}]);
-            }
-        })
+    requestCompanyRegistration(event: any){
+        if(event.files.length === 0){
+            this.alertsService.errorAlert([{message: 'Favor de proporcionar el archivo PDF'}]);
+        } else {
+            this.alertsService.confirmRequest('¿Estás seguro de que la información proporcionada es correcta?').subscribe({
+                next: res => {
+                    this.isUploading = true;
+                    this.selectedFiles = event.files;
+                    let formData = new FormData();
+
+                    for (const file of this.selectedFiles) {
+                        formData.append('file', file)
+                        formData.append('licencia_funcionamiento', this.requestForm.value.licencia_funcionamiento)
+                        formData.append('nombre_establecimiento', this.requestForm.value.nombre_establecimiento)
+                    }
+                    this.companiesService.requestCompanyRegistration(formData).subscribe({
+                        next: data => {
+                            this.isUploading = false;
+                            this.alertsService.successAlert(data.message).then(res => {
+                                if (res.isConfirmed){
+                                    this.dialogRef.close(true);
+                                }
+                            })
+                        },
+                        error: err => {
+                            this.isUploading = false;
+                            this.alertsService.errorAlert(err.error.errors);
+                        }
+                    })
+                }
+            });
+        }
     }
 }

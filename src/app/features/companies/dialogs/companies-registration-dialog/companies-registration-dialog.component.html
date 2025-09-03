@@ -1,13 +1,34 @@
-@if (searchForm) {
-    <form [formGroup]="searchForm">
-        <div class="flex items-center gap-3">
-            <input pInputText placeholder="Buscar empresa" formControlName="nombre_establecimiento"/>
+@if (requestForm) {
+    <form [formGroup]="requestForm" class="space-y-5">
+        <div>
+            <label>Licencia de funcionamiento</label>
+            <p-input-number inputId="integeronly" formControlName="licencia_funcionamiento" class="w-full"/>
+        </div>
+        <div>
+            <label>Nombre de la empresa y/o establecimiento</label>
+            <input pInputText formControlName="nombre_establecimiento"/>
+        </div>
+        <div >
+            <label>Archivo PDF que demuestre que tiene control para administrar esta empresa</label>
+            <p-fileupload #fu
+                          [customUpload]="true"
+                          (uploadHandler)="requestCompanyRegistration($event)"
+                          [disabled]="isUploading"
+                          mode="basic"
+                          chooseLabel="Seleccionar archivo"
+                          chooseIcon="pi pi-upload"
+                          accept="application/pdf"
+                          maxFileSize="1000000"
+            />
 
+
+        </div>
+        <div>
             <p-button
-                icon="pi pi-search"
-                [rounded]="true"
-                [loading]="isSearching"
-                (click)="searchCompany()"
+                label="Enviar solicitud"
+                (onClick)="fu.upload()"
+                severity="success"
+                [loading]="isUploading"
             />
         </div>
     </form>

@@ -12,6 +12,10 @@ import {CompaniesService} from '../../services/companies.service';
 import {AlertsService} from '../../../../core/services/alerts.service';
 import {Router} from '@angular/router';
 import {ConfirmationService} from 'primeng/api';
+import {
+    CompaniesRegistrationDialogComponent
+} from '../../dialogs/companies-registration-dialog/companies-registration-dialog.component';
+import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-companies-list',
@@ -24,7 +28,7 @@ import {ConfirmationService} from 'primeng/api';
         ButtonModule,
         TableSkeletonComponent
     ],
-    providers: [AlertsService, ConfirmationService],
+    providers: [AlertsService, ConfirmationService, DialogService],
     templateUrl: './companies-list.component.html',
     styleUrl: './companies-list.component.scss'
 })
@@ -34,6 +38,8 @@ export class CompaniesListComponent implements OnInit {
 
     private companiesService = inject(CompaniesService);
     private alertsService = inject(AlertsService);
+    private dialogRef: DynamicDialogRef | undefined;
+    private dialogService = inject(DialogService);
     private router = inject(Router);
 
     public companies: any;
@@ -42,12 +48,12 @@ export class CompaniesListComponent implements OnInit {
     public companiesStatus = CompaniesStatus;
 
     ngOnInit() {
-        this.getDraftDeclarations()
+        this.getCompanies()
     }
 
-    public getDraftDeclarations(){
+    public getCompanies(){
         this.isLoading = true;
-        this.companiesService.getCompaniesByStatus('all').subscribe({
+        this.companiesService.getAllCompaniesByUser().subscribe({
             next: res => {
                 this.isLoading = false;
                 this.companies = res.companies;
@@ -62,6 +68,27 @@ export class CompaniesListComponent implements OnInit {
     public viewCompanyDetails(company: any) {
         localStorage.setItem(this.companiesService.companyToken, btoa(JSON.stringify(company)));
         this.router.navigate(['/empresas/detalle']);
+    }
+
+    public openCompaniesRegistrationDialog(){
+        this.dialogRef = this.dialogService.open(CompaniesRegistrationDialogComponent, {
+            header: 'Adjuntar nueva empresa',
+            width: '40vw',
+            closeOnEscape: false,
+            modal: true,
+            closable: true,
+            baseZIndex: 1,
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw'
+            },
+        });
+
+        this.dialogRef.onClose.subscribe((result) => {
+            if (result) {
+                this.getCompanies();
+            }
+        });
     }
 
     applyFilter(event: Event) {

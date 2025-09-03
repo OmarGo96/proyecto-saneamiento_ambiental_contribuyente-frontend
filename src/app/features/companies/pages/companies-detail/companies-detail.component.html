@@ -106,14 +106,7 @@
                         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                             <dt class="text-sm/6 font-medium text-gray-900">Habitaciones</dt>
                             <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-                                <form [formGroup]="bedroomsForm" class="flex space-x-3">
-                                    <p-input-number formControlName="habitaciones" inputId="integeronly"/>
-                                    <p-button
-                                        label="Actualizar habitaciones"
-                                        [loading]="isUpdating"
-                                        (click)="updateBedrooms()"
-                                    />
-                                </form>
+                                {{ company.habitaciones }}
                             </dd>
                         </div>
                     </dl>

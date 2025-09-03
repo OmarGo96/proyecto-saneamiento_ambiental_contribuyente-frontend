@@ -16,8 +16,8 @@ export const CompaniesStatus = [
         styles: 'bg-gray-200 text-gray-800'
     },
     {
-        name: 'Con representante',
+        name: 'Activa',
         value: 1,
-        styles: 'bg-blue-200 text-blue-800'
+        styles: 'bg-green-200 text-green-800'
     }
 ]
