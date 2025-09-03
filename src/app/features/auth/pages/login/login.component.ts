@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {SessionService} from '../../../../core/services/session.service';
 import {AlertsService} from '../../../../core/services/alerts.service';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {InputTextModule} from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
 import {ButtonModule} from 'primeng/button';
@@ -15,7 +15,8 @@ import {ConfirmationService} from 'primeng/api';
         ReactiveFormsModule,
         InputTextModule,
         PasswordModule,
-        ButtonModule
+        ButtonModule,
+        RouterLink
     ],
     providers: [AlertsService, ConfirmationService],
     templateUrl: './login.component.html',
