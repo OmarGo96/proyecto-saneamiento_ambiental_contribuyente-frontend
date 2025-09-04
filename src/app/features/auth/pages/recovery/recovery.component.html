@@ -1,0 +1,38 @@
+
+
+<nav class="bg-white border-gray-200 shadow">
+    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+        <a href="https://flowbite.com" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="logo.png" class="w-64"/>
+        </a>
+
+        <p-button label="Inicio" icon="pi pi-home" [routerLink]="['/auth/login']" />
+    </div>
+</nav>
+<div class="w-1/4 mx-auto space-y-5 mt-32 border rounded-xl p-5">
+    <div class="flex justify-between items-center">
+        <div>
+            <h3 class="text-xl font-semibold ">Restauración de mi cuenta</h3>
+            <p class="text-sm text-slate-500">Ingresa tu correo electrónico</p>
+        </div>
+        <img src="isotipo-playa-del-carmen.png" class="w-24">
+    </div>
+    <form [formGroup]="recoveryForm" class="w-full space-y-5">
+        <div>
+            <label>Correo electrónico</label>
+            <input type="email" pInputText formControlName="email"  />
+        </div>
+
+
+        <div>
+            <p-button
+                (click)="recoveryAccount()"
+                [disabled]="isLoading"
+                [loading]="isLoading"
+                label="Restaurar mi cuenta"
+                severity="contrast"
+            />
+        </div>
+    </form>
+</div>
+

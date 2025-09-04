@@ -41,6 +41,20 @@
                         [outlined]="true"
                         class="p-login-button"
                     />
+
+                    <div class="flex justify-between">
+                        <p-button
+                            [routerLink]="['/auth/restaurar']"
+                            label="Restaurar cuenta"
+                            variant="text"
+                            severity="contrast"
+                        />
+                        <a href="https://www.youtube.com/watch?v=unUyCpJOgAg"
+                           pButton target="_blank" severity="info"
+                           text>
+                            <span pButtonLabel>Ver video tutorial</span>
+                        </a>
+                    </div>
                 </div>
                 <div class="relative w-full h-full rounded-2xl overflow-hidden">
                     <!-- Fondo con imagen -->

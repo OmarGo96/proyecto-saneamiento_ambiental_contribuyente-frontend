@@ -6,44 +6,71 @@
             <img src="logo.png" class="w-64"/>
         </a>
 
-        <p-button label="Iniciar sesión" icon="pi pi-sign-in" />
+        <p-button label="Iniciar sesión" icon="pi pi-sign-in" [routerLink]="['/auth/login']" />
     </div>
 </nav>
 <div class="w-1/3 mx-auto space-y-5 mt-5">
+    <h3 class="text-xl font-semibold ">Formato de solicitud de registro</h3>
     <form [formGroup]="accountForm" class="w-full space-y-5">
         <div>
             <label>Nombre del representate</label>
-            <input type="text" pInputText formControlName="nombre" />
+            <input type="text" pInputText formControlName="representante" />
         </div>
-        <div>
-            <label>Correo electrónico</label>
-            <input type="email" pInputText formControlName="email"  />
+        <div class="grid grid-cols-2 gap-5">
+            <div>
+                <label>Correo electrónico</label>
+                <input type="email" pInputText formControlName="email"  />
+            </div>
+
+            <div>
+                <label>Confirmar correo electrónico</label>
+                <input type="email" pInputText formControlName="confirm_email"  />
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-5">
+            <div>
+                <label>Teléfono</label>
+                <input type="text" pInputText formControlName="telefono"  />
+            </div>
+            <div>
+                <label>Licencia de funcionamiento</label>
+                <input type="text" pInputText formControlName="licencia_funcionamiento"  />
+            </div>
         </div>
 
         <div>
-            <label>Confirmar correo electrónico</label>
-            <input type="email" pInputText formControlName="email"  />
+            <label>Nombre comercial del alojamiento</label>
+            <input type="text" pInputText formControlName="nombre_establecimiento"  />
         </div>
 
-        <div>
-            <label>Nueva contraseña</label>
-            <p-password [toggleMask]="true" formControlName="password" />
-        </div>
+        <div >
+            <label>Archivo PDF que demuestre que tiene control para administrar esta empresa</label>
+            <p-fileupload #fu
+                          [customUpload]="true"
+                          (uploadHandler)="register($event)"
+                          [disabled]="isLoading"
+                          mode="basic"
+                          chooseLabel="Seleccionar archivo"
+                          chooseIcon="pi pi-upload"
+                          accept="application/pdf"
+                          maxFileSize="1000000"
+            />
 
-        <div>
-            <label>Teléfono</label>
-            <input type="text" pInputText formControlName="telefono"  />
-        </div>
 
+        </div>
 
         <div>
             <p-button
-                [disabled]="isUpdating"
-                [loading]="isUpdating"
-                label="Actualizar"
+                (onClick)="fu.upload()"
+                [disabled]="isLoading"
+                [loading]="isLoading"
+                label="Registrarme"
                 icon="pi pi-check-circle"
+                severity="success"
             />
         </div>
     </form>
 </div>
+<p-confirm-dialog/>
 
