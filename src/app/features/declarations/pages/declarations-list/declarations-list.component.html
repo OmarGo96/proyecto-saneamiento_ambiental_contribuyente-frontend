@@ -29,7 +29,7 @@
                      [showCurrentPageReport]="true"
                      currentPageReportTemplate="Showing {first} to {last} from {totalRecords} records"
                      [rowsPerPageOptions]="[10, 20, 30]"
-                     [globalFilterFields]="['nombre_establecimiento', 'licencia_funcionamiento_id', 'anio', 'mes', 'total_pagar']"
+                     [globalFilterFields]="['company.nombre_establecimiento', 'company.licencia_funcionamiento_id', 'anio', 'mes_letras', 'fecha_vencimiento_pase', 'ocupacion_real', 'total_pagar']"
                      size="small"
             >
                 <ng-template pTemplate="header">
