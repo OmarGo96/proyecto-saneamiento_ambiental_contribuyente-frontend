@@ -32,9 +32,14 @@ export class AlertsService {
     errorAlert(messages: any) {
         let msg;
         messages.forEach((m: any) => {
-            msg = m.message;
+            if(m.message){
+                msg = m.message;
+            }else{
+                msg = m;
+            }
+            
         });
-
+        
         Swal.fire({
             title: 'Ups, algo salió mal',
             text: msg,
