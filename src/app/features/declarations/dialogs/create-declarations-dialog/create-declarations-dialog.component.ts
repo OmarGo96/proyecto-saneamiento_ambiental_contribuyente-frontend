@@ -63,14 +63,14 @@ export class CreateDeclarationsDialogComponent implements OnInit {
             tipo_declaracion: ['1', Validators.required],
             ocupacion1: ['0', Validators.required],
             ocupacion2: ['0', Validators.required],
-            ocupacion3: ['0', Validators.required],
-            ocupacion4: ['0', Validators.required]
+            ocupacion3: [{value: '0', disabled: true}, Validators.required],
+            ocupacion4: [{value: '0', disabled: true}, Validators.required]
         });
     }
 
     public createDeclaration() {
         this.isLoading = true;
-        const data = this.createStatementForm.value;
+        const data = this.createStatementForm.getRawValue();
         this.declarationsService.createDeclaration(this.companyId, data).subscribe({
             next: data => {
                 this.isLoading = false;
