@@ -16,7 +16,7 @@
                         <p class="font-normal text-stone-600">Ingresa tus credenciales</p>
                     </div>
 
-                    <form [formGroup]="loginForm" class="space-y-3" (keydown.enter)="onLogin()">
+                    <form [formGroup]="loginForm" class="space-y-3">
                         <div>
                             <label>Correo electrónico</label>
                             <input type="text" pInputText formControlName="email"/>
@@ -26,6 +26,7 @@
                             <p-password [feedback]="false" [toggleMask]="true" formControlName="password"/>
                         </div>
                         <p-button
+                            type="submit"
                             label="Iniciar sesión"
                             icon="pi pi-sign-in"
                             class="p-login-button"
