@@ -99,7 +99,7 @@ export class DeclarationsListComponent implements OnInit {
         this.alertsService.confirmRequest('¿Estás seguro de enviar a verificación de pago?').subscribe({
             next: res => {
                 this.spinner.show();
-                this.declarationsService.verifyDeclaration(declaration.id).subscribe({
+                this.declarationsService.verifyDeclaration(declaration.uuid).subscribe({
                     next: (res: any) => {
                         this.spinner.hide();
                         this.alertsService.successAlert(res.message).then(res => {
@@ -140,7 +140,7 @@ export class DeclarationsListComponent implements OnInit {
 
     public getStatementFormat(declaration: any){
         this.spinner.show();
-        this.declarationsService.getStatementFormat(declaration.id).subscribe({
+        this.declarationsService.getStatementFormat(declaration.uuid).subscribe({
             next: res => {
                 this.spinner.hide();
                 this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(res));
@@ -161,7 +161,7 @@ export class DeclarationsListComponent implements OnInit {
         this.alertsService.confirmRequest('¿Estás seguro de eliminar esta declaración?').subscribe({
             next: res => {
                 this.spinner.show();
-                this.declarationsService.deleteDeclaration(declaration.id).subscribe({
+                this.declarationsService.deleteDeclaration(declaration.uuid).subscribe({
                     next: (res: any) => {
                         this.spinner.hide();
                         this.alertsService.successAlert(res.message).then(res => {

@@ -28,24 +28,24 @@ export class CompaniesService {
         return this.httpClient.post(`${this.url}/user-request/store`, data);
     }
 
-    updateBedrooms(companyId: any, data: any): Observable<any> {
-        return this.httpClient.put(`${this.url}/companies/updateBedrooms/${companyId}`, data);
+    updateBedrooms(companyUuid: any, data: any): Observable<any> {
+        return this.httpClient.put(`${this.url}/companies/updateBedrooms/${companyUuid}`, data);
     }
 
-    unlinkCompany(data: any, companyId: any): Observable<any> {
-        return this.httpClient.put(`${this.url}/companies/unlink/${companyId}`, data);
+    unlinkCompany(data: any, companyUuid: any): Observable<any> {
+        return this.httpClient.put(`${this.url}/companies/unlink/${companyUuid}`, data);
     }
 
-    releaseCompany(companyId: any): Observable<any> {
-        return this.httpClient.put(`${this.url}/companies/release/${companyId}`, {});
+    releaseCompany(companyUuid: any): Observable<any> {
+        return this.httpClient.put(`${this.url}/companies/release/${companyUuid}`, {});
     }
 
-    disableCompany(companyId: any): Observable<any> {
-        return this.httpClient.put(`${this.url}/companies/disable/${companyId}`, {});
+    disableCompany(companyUuid: any): Observable<any> {
+        return this.httpClient.put(`${this.url}/companies/disable/${companyUuid}`, {});
     }
 
-    enableCompany(companyId: any): Observable<any> {
-        return this.httpClient.put(`${this.url}/companies/enable/${companyId}`, {});
+    enableCompany(companyUuid: any): Observable<any> {
+        return this.httpClient.put(`${this.url}/companies/enable/${companyUuid}`, {});
     }
 
 }

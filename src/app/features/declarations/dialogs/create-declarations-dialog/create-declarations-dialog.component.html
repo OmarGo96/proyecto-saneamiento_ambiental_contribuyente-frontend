@@ -4,7 +4,7 @@
         <p-select
             [options]="companies"
             optionLabel="nombre_establecimiento"
-            optionValue="id"
+            optionValue="uuid"
             placeholder="Selecciona una opción"
             (onChange)="getOpeningByCompany($event)"
             appendTo="body"

@@ -18,7 +18,7 @@ export class OpeningService {
         return this.httpClient.post(`${this.url}/opening/store`, data);
     }
 
-    getOpeningByCompany(companyId: any): Observable<any> {
-        return this.httpClient.get(`${this.url}/exceptions/show-by-company/${companyId}`);
+    getOpeningByCompany(companyUuid: any): Observable<any> {
+        return this.httpClient.get(`${this.url}/exceptions/show-by-company/${companyUuid}`);
     }
 }

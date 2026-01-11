@@ -53,7 +53,7 @@ export class DeclarationsDetailsComponent implements OnInit {
 
     public getStatementFormat(declaration: any){
         this.spinner.show();
-        this.declarationsService.getStatementFormat(declaration.id).subscribe({
+        this.declarationsService.getStatementFormat(declaration.uuid).subscribe({
             next: res => {
                 this.spinner.hide();
                 this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(res));

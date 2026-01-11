@@ -56,7 +56,7 @@ export class CompaniesDetailComponent implements OnInit {
     updateBedrooms() {
         this.isUpdating = true;
         const data = this.bedroomsForm.value;
-        this.companiesService.updateBedrooms(this.company.id, data).subscribe({
+        this.companiesService.updateBedrooms(this.company.uuid, data).subscribe({
             next: data => {
                 this.isUpdating = false;
                 this.alertsService.successAlert(data.message);
