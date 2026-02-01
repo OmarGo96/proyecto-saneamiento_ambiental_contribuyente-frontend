@@ -1,0 +1,33 @@
+.welcome-dialog {
+    .p-dialog-header {
+        background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        color: white;
+        border-radius: 8px 8px 0 0;
+
+        .p-dialog-header-icon {
+            color: white;
+            &:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+    }
+
+    .p-dialog-content {
+        background: #fafafa;
+    }
+
+    .p-carousel-indicator button {
+        background-color: #d1d5db;
+        &.p-highlight {
+            background-color: #f97316;
+        }
+    }
+
+    .p-carousel-prev,
+    .p-carousel-next {
+        color: #f97316;
+        &:hover {
+            background: rgba(249, 115, 22, 0.1);
+        }
+    }
+}

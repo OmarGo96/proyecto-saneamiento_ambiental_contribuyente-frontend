@@ -1,0 +1,38 @@
+<p-dialog
+    [(visible)]="visible"
+    [modal]="true"
+    [closable]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [dismissableMask]="false"
+    [style]="{ width: '95vw', maxWidth: '550px' }"
+    [contentStyle]="{ padding: '0', overflow: 'hidden' }"
+    styleClass="welcome-dialog"
+    header="📢 Avisos Importantes"
+    (onHide)="onClose()"
+>
+    <p-carousel
+        [value]="anuncios"
+        [numVisible]="1"
+        [numScroll]="1"
+        [circular]="true"
+        [autoplayInterval]="5000"
+        [showIndicators]="true"
+        [showNavigators]="true"
+    >
+        <ng-template pTemplate="item" let-anuncio>
+            <div class="flex flex-col items-center p-2">
+                <div
+                    class="w-full flex justify-center"
+                    style="height: 70vh; max-height: 600px"
+                >
+                    <img
+                        [src]="anuncio.imagen"
+                        [alt]="anuncio.titulo"
+                        class="h-full w-auto object-contain rounded-lg shadow-md"
+                    />
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+</p-dialog>
