@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';
+import { CommonModule } from '@angular/common';
 
 interface Anuncio {
     id: number;
@@ -12,12 +13,13 @@ interface Anuncio {
 
 @Component({
     selector: 'app-welcome-popup-dialog',
-    imports: [DialogModule, CarouselModule, ButtonModule],
+    imports: [DialogModule, CarouselModule, ButtonModule, CommonModule],
     templateUrl: './welcome-popup-dialog.component.html',
     styleUrl: './welcome-popup-dialog.component.scss',
 })
 export class WelcomePopupDialogComponent {
     visible = false;
+    currentIndex = 0;
 
     // Configura aquí tus anuncios/imágenes
     anuncios: Anuncio[] = [
@@ -48,7 +50,13 @@ export class WelcomePopupDialogComponent {
     }
 
     onClose(): void {
-        // Lógica adicional al cerrar si la necesitas
-        console.log('Popup de bienvenida cerrado');
+    }
+
+    onPageChange(event: any): void {
+        this.currentIndex = event.page;
+    }
+
+    goToSlide(index: number): void {
+        this.currentIndex = index;
     }
 }

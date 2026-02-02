@@ -1,20 +1,25 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {ButtonModule} from 'primeng/button';
-import {MenuModule} from 'primeng/menu';
-import {Router} from '@angular/router';
-import {MenuItem} from 'primeng/api';
+import { Component, inject, OnInit, ViewContainerRef } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
+import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
+import { TooltipModule } from 'primeng/tooltip';
+import { WelcomePopupService } from '../../services/welcome-popup.service';
 
 @Component({
-  selector: 'app-navbar',
-  imports: [
-      ButtonModule,
-      MenuModule
-  ],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+    selector: 'app-navbar',
+    imports: [
+        ButtonModule,
+        MenuModule,
+        TooltipModule
+    ],
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit {
-    private router = inject(Router)
+    private router = inject(Router);
+    private welcomePopupService = inject(WelcomePopupService);
+    private viewContainerRef = inject(ViewContainerRef);
     public items: MenuItem[] | undefined;
 
     ngOnInit() {
@@ -33,5 +38,9 @@ export class NavbarComponent implements OnInit {
                 ]
             }
         ];
+    }
+
+    mostrarAvisos(): void {
+        this.welcomePopupService.mostrarPopup(this.viewContainerRef);
     }
 }

@@ -3,6 +3,8 @@
         background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
         color: white;
         border-radius: 8px 8px 0 0;
+        padding: 0.75rem 1rem;
+        font-size: 1.1rem;
 
         .p-dialog-header-icon {
             color: white;
@@ -14,6 +16,40 @@
 
     .p-dialog-content {
         background: #fafafa;
+        padding: 0 !important;
+        height: calc(90vh - 60px);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .p-carousel {
+        height: 100%;
+        
+        .p-carousel-content {
+            height: 100%;
+            
+            .p-carousel-container {
+                padding: 0;
+                height: 100%;
+            }
+        }
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(90vh - 120px);
+        padding: 0.5rem;
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+        }
     }
 
     .p-carousel-indicator button {

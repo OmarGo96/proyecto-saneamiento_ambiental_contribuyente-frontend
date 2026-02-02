@@ -54,6 +54,8 @@ export class LoginComponent implements OnInit {
                 const token = res.token;
 
                 sessionStorage.setItem(this.sessionService.jwtToken, token);
+                // Flag para mostrar el popup de bienvenida después del login
+                sessionStorage.setItem('showWelcomePopup', 'true');
 
                 this.router.navigate(['/declaraciones']);
 

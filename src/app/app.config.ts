@@ -1,7 +1,7 @@
 import {ApplicationConfig, provideZoneChangeDetection} from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
-import {provideRouter, withComponentInputBinding} from '@angular/router';
+import {provideRouter, withComponentInputBinding, withRouterConfig} from '@angular/router';
 import {routes} from './app.routes';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {jwtInterceptor} from './core/interceptors/jwt.interceptor';
@@ -21,7 +21,11 @@ export const appConfig: ApplicationConfig = {
                 }
             }
         }),
-        provideRouter(routes, withComponentInputBinding()),
+        provideRouter(
+            routes, 
+            withComponentInputBinding(),
+            withRouterConfig({ onSameUrlNavigation: 'reload' })
+        ),
         provideHttpClient(withInterceptors([jwtInterceptor])),
     ]
 };

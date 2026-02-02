@@ -2,6 +2,7 @@ import {
     Component,
     inject,
     OnInit,
+    OnDestroy,
     ViewChild,
     ViewContainerRef,
 } from '@angular/core';
@@ -43,7 +44,7 @@ import { WelcomePopupService } from '../../../../shared/services/welcome-popup.s
     templateUrl: './declarations-list.component.html',
     styleUrl: './declarations-list.component.scss',
 })
-export class DeclarationsListComponent implements OnInit {
+export class DeclarationsListComponent implements OnInit, OnDestroy {
     @ViewChild('table') table: any | undefined;
 
     private declarationsService = inject(DeclarationsService);
@@ -66,6 +67,11 @@ export class DeclarationsListComponent implements OnInit {
     ngOnInit() {
         this.mostrarPopupBienvenida();
         this.getDeclarations();
+    }
+
+    ngOnDestroy() {
+        // Cerrar y limpiar el popup al destruir el componente
+        this.welcomePopupService.cerrarPopup();
     }
 
     public getDeclarations() {
@@ -231,12 +237,13 @@ export class DeclarationsListComponent implements OnInit {
     }
 
     private mostrarPopupBienvenida(): void {
-        // Verificar si ya se mostró en esta sesión
-        const yaSeVio = sessionStorage.getItem('welcomePopupShown');
+        // Verificar si debe mostrarse el popup después del login
+        const shouldShow = sessionStorage.getItem('showWelcomePopup');
 
-        if (!yaSeVio) {
+        if (shouldShow === 'true') {
             this.welcomePopupService.mostrarPopup(this.viewContainerRef);
-            sessionStorage.setItem('welcomePopupShown', 'true');
+            // Eliminar la flag para que no se vuelva a mostrar hasta el próximo login
+            sessionStorage.removeItem('showWelcomePopup');
         }
     }
 

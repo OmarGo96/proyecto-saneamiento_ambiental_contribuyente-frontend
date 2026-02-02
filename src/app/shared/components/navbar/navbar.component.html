@@ -8,6 +8,16 @@
                 </a>
             </div>
             <div class="flex items-center">
+                <p-button 
+                    (click)="mostrarAvisos()" 
+                    icon="pi pi-megaphone" 
+                    [rounded]="true" 
+                    severity="warn" 
+                    [text]="true"
+                    pTooltip="Ver avisos importantes"
+                    tooltipPosition="bottom"
+                    class="mr-2"
+                />
                 <div class="flex items-center ms-3">
                     <p-button (click)="menu.toggle($event)" icon="pi pi-user" [rounded]="true" severity="secondary" />
                 </div>
