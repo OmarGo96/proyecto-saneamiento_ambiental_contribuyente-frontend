@@ -18,16 +18,13 @@
             <p-select
                 [options]="openings"
                 formControlName="opening_id"
-                optionLabel="mes_letras"
+                optionLabel="displayLabel"
                 optionValue="id"
                 placeholder="Selecciona una opción"
+                (onChange)="onOpeningChange($event)"
                 appendTo="body"
                 class="w-full"
-            >
-                <ng-template let-topping #item>
-                    <div>{{ topping.anio }} | {{ topping.mes_letras }}</div>
-                </ng-template>
-            </p-select>
+            />
         </div>
         <div>
             <label for="">Tipo de declaración</label>

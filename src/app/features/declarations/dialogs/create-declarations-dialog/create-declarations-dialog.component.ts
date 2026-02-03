@@ -44,12 +44,13 @@ export class CreateDeclarationsDialogComponent implements OnInit {
     ]
 
     ngOnInit(): void {
+        this.initCreateStatementForm();
+        
         forkJoin({
             companies: this.companiesService.getCompanies()
         }).subscribe({
             next: ({companies}) => {
                 this.companies = companies.companies;
-                this.initCreateStatementForm();
             },
             error: err => {
                 this.alertsService.errorAlert(err.error.errors);
@@ -96,11 +97,30 @@ export class CreateDeclarationsDialogComponent implements OnInit {
         this.companyId = event.value;
         this.openingService.getOpeningByCompany(this.companyId).subscribe({
             next: data => {
-                this.openings = data.openings;
+                this.openings = data.openings.map((opening: any) => ({
+                    ...opening,
+                    displayLabel: `${opening.anio} | ${opening.mes_letras}`
+                }));
             },
             error: err => {
                 this.alertsService.errorAlert(err.error.errors);
             }
         })
+    }
+
+    public onOpeningChange(event: any) {
+        const selectedOpening = this.openings.find((opening: any) => opening.id === event.value);
+        
+        if (selectedOpening && selectedOpening.anio >= 2026) {
+            this.createStatementForm.get('ocupacion3')?.enable();
+            this.createStatementForm.get('ocupacion4')?.enable();
+        } else {
+            this.createStatementForm.get('ocupacion3')?.disable();
+            this.createStatementForm.get('ocupacion4')?.disable();
+            this.createStatementForm.patchValue({
+                ocupacion3: '0',
+                ocupacion4: '0'
+            });
+        }
     }
 }
