@@ -141,9 +141,14 @@ export class DeclarationsListComponent implements OnInit, OnDestroy {
     }
 
     public viewDeclarationDetails(declaration: any) {
+        // Codificar a UTF-8 antes de usar btoa para soportar caracteres especiales
+        const jsonString = JSON.stringify(declaration);
+        const utf8Bytes = new TextEncoder().encode(jsonString);
+        const base64String = btoa(String.fromCharCode(...utf8Bytes));
+        
         localStorage.setItem(
             this.declarationsService.declarationToken,
-            btoa(JSON.stringify(declaration)),
+            base64String,
         );
         this.router.navigate(['/declaraciones/detalle']);
     }

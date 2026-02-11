@@ -47,7 +47,11 @@ export class DeclarationsDetailsComponent implements OnInit {
 
     ngOnInit() {
         const declarationToken: any = localStorage.getItem(this.declarationsService.declarationToken);
-        this.declaration = JSON.parse(atob(declarationToken));
+        // Decodificar de UTF-8 después de usar atob para soportar caracteres especiales
+        const binaryString = atob(declarationToken);
+        const bytes = Uint8Array.from(binaryString, char => char.charCodeAt(0));
+        const jsonString = new TextDecoder().decode(bytes);
+        this.declaration = JSON.parse(jsonString);
         console.log(this.declaration);
     }
 
