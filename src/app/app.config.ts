@@ -6,6 +6,10 @@ import {routes} from './app.routes';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {jwtInterceptor} from './core/interceptors/jwt.interceptor';
 import {DsaTheme} from './core/constants/theme-presets/dsa-theme';
+import {AlertsService} from './core/services/alerts.service';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {DialogService} from 'primeng/dynamicdialog';
+import {Location} from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -22,10 +26,14 @@ export const appConfig: ApplicationConfig = {
             }
         }),
         provideRouter(
-            routes, 
+            routes,
             withComponentInputBinding(),
             withRouterConfig({ onSameUrlNavigation: 'reload' })
         ),
         provideHttpClient(withInterceptors([jwtInterceptor])),
+        AlertsService,
+        ConfirmationService,
+        MessageService,
+        DialogService
     ]
 };

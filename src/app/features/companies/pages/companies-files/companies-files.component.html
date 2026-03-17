@@ -11,38 +11,191 @@
                 />
                 <h3 class="text-lg sm:text-xl font-semibold">Documentos de la empresa</h3>
             </div>
-            <!--@for (status of companiesStatus; track status) {
-                @if (status.value === company.status) {
-                    <span class="{{ status.styles }} font-medium me-2 px-2.5 py-0.5 rounded-full">
-                            {{ status.name }}
-                        </span>
-                }
-            }-->
         </div>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4">
-        <div (click)="openAddCompaniesDocumentationDialog()"  class="flex items-center justify-center w-full">
-            <div
-                class="flex flex-col items-center justify-center w-full h-40 sm:h-48 lg:h-52 bg-gray-100 rounded-lg border border-dashed border-default-strong rounded-base cursor-pointer hover:bg-gray-200 transition-colors">
-                <div class="flex flex-col items-center justify-center text-body px-4 py-5 sm:py-6">
-                    <i class="pi pi-upload mb-3 sm:mb-5 text-gray-600" style="font-size: 2rem; font-size: clamp(1.5rem, 4vw, 2.5rem)"></i>
-                    <p class="mb-2 text-xs sm:text-sm text-gray-600 text-center"><span class="font-semibold">Da click para subir un nuevo archivo</span>
-                    </p>
-                    <p class="text-xs text-gray-600">PDF</p>
-                </div>
-            </div>
-        </div>
-        @if (documentation && documentation.length >= 1) {
-            @for (document of documentation; track document) {
-                <div class="flex flex-col items-center justify-center p-4 sm:p-6 rounded-lg border shadow-xs space-y-2 sm:space-y-3 hover:shadow-md transition-shadow">
-                    <i class="pi pi-file-pdf text-red-500" style="font-size: clamp(1.5rem, 5vw, 2rem)"></i>
-                    <div class="text-center w-full px-2">
-                        <h5 class="font-medium tracking-tight text-heading text-sm sm:text-base break-words">{{ document.file }}</h5>
-                        <p class="text-xs sm:text-sm text-gray-500 tracking-tight text-heading">{{ document.type }}</p>
-                        <p class="text-xs sm:text-sm text-gray-500 tracking-tight text-heading">{{ document.date | date:'dd/MM/yyyy' }}</p>
+
+    <!-- Lista de documentos requeridos -->
+    @if (documents && documents.length > 0) {
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            @for (document of documents; track document.type_document_uuid) {
+                <div class="bg-white rounded-lg border shadow-sm hover:shadow-md transition-shadow">
+                    <div class="p-4 sm:p-5">
+                        <!-- Header con icono y título -->
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="flex-shrink-0 mt-1">
+                                @if (document.file) {
+                                    <i class="pi pi-check-circle text-green-500 text-xl"></i>
+                                } @else {
+                                    <i class="pi pi-file-pdf text-gray-400 text-xl"></i>
+                                }
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-semibold text-gray-900 line-clamp-2">
+                                    {{ document.type_document_name }}
+                                </h4>
+                                @if (document.file) {
+                                    <p class="text-xs text-gray-600 mb-1 truncate" [title]="document.file">
+                                        <i class="pi pi-file mr-1"></i>
+                                        {{ document.file }}
+                                    </p>
+                                }
+
+                            </div>
+                        </div>
+
+                        <!-- Mensaje de rechazo -->
+                        @if (document.status === 'rechazado' && document.rejection_reason) {
+                            <div class="mb-3 p-2 bg-red-50 border border-red-200 rounded">
+                                <p class="text-xs text-red-600">
+                                    <i class="pi pi-exclamation-triangle mr-1"></i>
+                                    {{ document.rejection_reason }}
+                                </p>
+                            </div>
+                        }
+
+                        <!-- Badge de estado -->
+                        @if (document.status) {
+                            <div class="mb-3">
+                                @switch (document.status) {
+                                    @case ('aprobado') {
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            <i class="pi pi-check mr-1"></i>
+                                            Aprobado
+                                        </span>
+                                    }
+                                    @case ('pendiente') {
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                            <i class="pi pi-clock mr-1"></i>
+                                            En revisión
+                                        </span>
+                                    }
+                                    @case ('rechazado') {
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                            <i class="pi pi-times mr-1"></i>
+                                            Rechazado
+                                        </span>
+                                    }
+                                }
+                            </div>
+                        }
+
+                        <!-- Acciones y uploader -->
+                        <div class="flex flex-col gap-2">
+                            @if (document.file) {
+                                <!-- Botones para documento existente -->
+                                <div class="space-y-2">
+                                    <div class="flex justify-between items-center">
+                                        <p-button
+                                            icon="pi pi-eye"
+                                            label="Ver archivo"
+                                            [outlined]="true"
+                                            severity="secondary"
+                                            size="small"
+                                            (onClick)="viewDocument(document)"
+                                        />
+                                        @if (document.created_at) {
+                                            <p class="text-xs text-gray-500">
+                                                {{ document.created_at | date:'dd/MM/yyyy HH:mm' }}
+                                            </p>
+                                        }
+                                    </div>
+
+                                    <!-- Reemplazo de documento - Solo visible si está rechazado -->
+                                    @if (document.status === 'rechazado') {
+                                        <div class="space-y-5 pt-2 border-t border-gray-200">
+                                            <div class="flex items-center gap-2">
+                                                <p-fileupload
+                                                    #replaceFileUploader
+                                                    mode="basic"
+                                                    chooseLabel="Reemplazar"
+                                                    accept="application/pdf"
+                                                    [maxFileSize]="10000000"
+                                                    (onSelect)="onReplaceFileSelect($event, document)"
+                                                    [auto]="false"
+                                                    chooseIcon="pi pi-refresh"
+                                                    styleClass="flex-1 text-xs"
+                                                />
+                                                @if (replacementFiles.get(document.uuid!)) {
+                                                    <p-button
+                                                        icon="pi pi-times"
+                                                        [rounded]="true"
+                                                        severity="danger"
+                                                        [text]="true"
+                                                        (onClick)="clearReplacementFile(document.uuid!, replaceFileUploader)"
+                                                        pTooltip="Limpiar"
+                                                        tooltipPosition="top"
+                                                    />
+                                                }
+                                            </div>
+                                            @if (replacementFiles.get(document.uuid!)) {
+                                                <div>
+                                                    <p-button
+                                                        icon="pi pi-cloud-upload"
+                                                        label="Confirmar reemplazo"
+                                                        severity="warn"
+                                                        size="small"
+                                                        styleClass="w-full"
+                                                        (onClick)="replaceDocument(document, replaceFileUploader)"
+                                                    />
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            } @else {
+                                <!-- File uploader para documento nuevo -->
+                                <div class="space-y-5">
+                                    <div class="flex items-center gap-2">
+                                        <p-fileupload
+                                            #fileUploader
+                                            mode="basic"
+                                            chooseLabel="Seleccionar"
+                                            accept="application/pdf"
+                                            [maxFileSize]="10000000"
+                                            (onSelect)="onFileSelect($event, document)"
+                                            [auto]="false"
+                                            chooseIcon="pi pi-folder-open"
+                                            styleClass="flex-1"
+                                        />
+                                        @if (selectedFiles.get(document.type_document_uuid)) {
+                                            <p-button
+                                                icon="pi pi-times"
+                                                [rounded]="true"
+                                                severity="danger"
+                                                [text]="true"
+                                                (onClick)="clearSelectedFile(document.type_document_uuid, fileUploader)"
+                                                pTooltip="Limpiar"
+                                                tooltipPosition="top"
+                                            />
+                                        }
+                                    </div>
+                                    @if (selectedFiles.get(document.type_document_uuid)) {
+                                        <div>
+                                            <p-button
+                                                icon="pi pi-cloud-upload"
+                                                label="Subir documento"
+                                                severity="success"
+                                                size="small"
+                                                styleClass="w-full"
+                                                (onClick)="uploadDocument(document, fileUploader)"
+                                            />
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
             }
-        }
-    </div>
+        </div>
+    } @else {
+        <!-- Estado vacío -->
+        <div class="flex flex-col items-center justify-center py-12 px-4">
+            <i class="pi pi-file-excel text-gray-300 mb-4" style="font-size: 4rem"></i>
+            <p class="text-gray-500 text-center">No hay documentos requeridos para esta empresa</p>
+        </div>
+    }
 </div>

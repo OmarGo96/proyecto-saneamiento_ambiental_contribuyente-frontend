@@ -13,7 +13,7 @@ export default [
         component: CompaniesDetailComponent
     },
     {
-        path: 'documentos/:companyId',
+        path: 'documentos/:companyUuid',
         component: CompaniesFilesComponent
     }
 ] as Routes;
