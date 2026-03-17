@@ -10,7 +10,7 @@ import {TableSkeletonComponent} from '../../../../shared/components/skeleton/tab
 import {CompaniesStatus} from '../../constants/companies-status';
 import {CompaniesService} from '../../services/companies.service';
 import {AlertsService} from '../../../../core/services/alerts.service';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {ConfirmationService} from 'primeng/api';
 import {
     CompaniesRegistrationDialogComponent
@@ -26,7 +26,8 @@ import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
         TableModule,
         PopoverModule,
         ButtonModule,
-        TableSkeletonComponent
+        TableSkeletonComponent,
+        RouterLink
     ],
     providers: [AlertsService, ConfirmationService, DialogService],
     templateUrl: './companies-list.component.html',

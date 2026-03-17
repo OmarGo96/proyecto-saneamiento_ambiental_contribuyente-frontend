@@ -48,4 +48,8 @@ export class CompaniesService {
         return this.httpClient.put(`${this.url}/companies/enable/${companyUuid}`, {});
     }
 
+    getCompaniesFiles(companyId: any): Observable<any> {
+        return this.httpClient.get(`${this.url}/company-documents/${companyId}`);
+    }
+
 }

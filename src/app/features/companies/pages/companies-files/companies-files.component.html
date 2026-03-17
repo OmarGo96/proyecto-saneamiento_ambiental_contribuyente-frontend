@@ -1,0 +1,48 @@
+<div class="w-full mx-auto space-y-4">
+    <div>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-2">
+            <div class="flex items-center gap-2 sm:gap-3">
+                <p-button
+                    icon="pi pi-arrow-left"
+                    [rounded]="true"
+                    severity="secondary"
+                    [outlined]="true"
+                    class="flex-shrink-0"
+                />
+                <h3 class="text-lg sm:text-xl font-semibold">Documentos de la empresa</h3>
+            </div>
+            <!--@for (status of companiesStatus; track status) {
+                @if (status.value === company.status) {
+                    <span class="{{ status.styles }} font-medium me-2 px-2.5 py-0.5 rounded-full">
+                            {{ status.name }}
+                        </span>
+                }
+            }-->
+        </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4">
+        <div (click)="openAddCompaniesDocumentationDialog()"  class="flex items-center justify-center w-full">
+            <div
+                class="flex flex-col items-center justify-center w-full h-40 sm:h-48 lg:h-52 bg-gray-100 rounded-lg border border-dashed border-default-strong rounded-base cursor-pointer hover:bg-gray-200 transition-colors">
+                <div class="flex flex-col items-center justify-center text-body px-4 py-5 sm:py-6">
+                    <i class="pi pi-upload mb-3 sm:mb-5 text-gray-600" style="font-size: 2rem; font-size: clamp(1.5rem, 4vw, 2.5rem)"></i>
+                    <p class="mb-2 text-xs sm:text-sm text-gray-600 text-center"><span class="font-semibold">Da click para subir un nuevo archivo</span>
+                    </p>
+                    <p class="text-xs text-gray-600">PDF</p>
+                </div>
+            </div>
+        </div>
+        @if (documentation && documentation.length >= 1) {
+            @for (document of documentation; track document) {
+                <div class="flex flex-col items-center justify-center p-4 sm:p-6 rounded-lg border shadow-xs space-y-2 sm:space-y-3 hover:shadow-md transition-shadow">
+                    <i class="pi pi-file-pdf text-red-500" style="font-size: clamp(1.5rem, 5vw, 2rem)"></i>
+                    <div class="text-center w-full px-2">
+                        <h5 class="font-medium tracking-tight text-heading text-sm sm:text-base break-words">{{ document.file }}</h5>
+                        <p class="text-xs sm:text-sm text-gray-500 tracking-tight text-heading">{{ document.type }}</p>
+                        <p class="text-xs sm:text-sm text-gray-500 tracking-tight text-heading">{{ document.date | date:'dd/MM/yyyy' }}</p>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
