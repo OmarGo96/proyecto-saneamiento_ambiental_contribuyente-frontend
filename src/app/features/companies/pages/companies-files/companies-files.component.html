@@ -19,7 +19,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             @for (document of documents; track document.type_document_uuid) {
                 <div class="bg-white rounded-lg border shadow-sm hover:shadow-md transition-shadow">
-                    <div class="p-4 sm:p-5">
+                    <div class="space-y-3 p-4 sm:p-5">
                         <!-- Header con icono y título -->
                         <div class="flex items-center gap-3 mb-3">
                             <div class="flex-shrink-0 mt-1">
@@ -43,43 +43,46 @@
                             </div>
                         </div>
 
-                        <!-- Mensaje de rechazo -->
-                        @if (document.status === 'rechazado' && document.rejection_reason) {
-                            <div class="mb-3 p-2 bg-red-50 border border-red-200 rounded">
-                                <p class="text-xs text-red-600">
-                                    <i class="pi pi-exclamation-triangle mr-1"></i>
-                                    {{ document.rejection_reason }}
-                                </p>
-                            </div>
+                        @if (document.status === 'APROBADO' || document.status === 'approved') {
+                            <p-message
+                                severity="success"
+                                styleClass="w-full">
+                                <div class="flex flex-col gap-1">
+                                    <span class="font-semibold"><i class="pi pi-check"></i> Documento aprobado</span>
+                                    @if (document.reviewed_at) {
+                                        <span class="text-xs">Revisado el {{ document.reviewed_at | date:'dd/MM/yyyy HH:mm' }}</span>
+                                    }
+                                </div>
+                            </p-message>
                         }
 
-                        <!-- Badge de estado -->
-                        @if (document.status) {
-                            <div class="mb-3">
-                                @switch (document.status) {
-                                    @case ('aprobado') {
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                            <i class="pi pi-check mr-1"></i>
-                                            Aprobado
-                                        </span>
+                        @if (document.status === 'PENDIENTE' || document.status === 'pending') {
+                            <p-message
+                                severity="warn"
+                                styleClass="w-full">
+                                <div class="flex flex-col gap-1">
+                                    <span class="font-semibold"><i class="pi pi-hourglass"></i> Pendiente de revisión</span>
+                                    <span class="text-xs">Este documento está esperando ser revisado</span>
+                                </div>
+                            </p-message>
+                        }
+
+                        @if (document.status === 'RECHAZADO' || document.status === 'rejected') {
+                            <p-message
+                                severity="error"
+                                styleClass="w-full">
+                                <div class="flex flex-col gap-1">
+                                    <span class="font-semibold"><i class="pi pi-times"></i> Documento rechazado</span>
+                                    @if (document.reviewed_at) {
+                                        <span class="text-xs">Rechazado el {{ document.reviewed_at | date:'dd/MM/yyyy HH:mm' }}</span>
                                     }
-                                    @case ('pendiente') {
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                                            <i class="pi pi-clock mr-1"></i>
-                                            En revisión
-                                        </span>
+                                    @if (document.rejection_reason) {
+                                        <span class="text-xs mt-1 block">
+                                                <strong>Motivo:</strong> {{ document.rejection_reason }}
+                                            </span>
                                     }
-                                    @case ('rechazado') {
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                            <i class="pi pi-times mr-1"></i>
-                                            Rechazado
-                                        </span>
-                                    }
-                                }
-                            </div>
+                                </div>
+                            </p-message>
                         }
 
                         <!-- Acciones y uploader -->

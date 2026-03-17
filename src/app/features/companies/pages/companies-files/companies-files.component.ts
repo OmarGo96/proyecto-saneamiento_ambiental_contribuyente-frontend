@@ -11,6 +11,7 @@ import {
 } from '../../dialogs/add-companies-files-dialog/add-companies-files-dialog.component';
 import {CompanyDocument} from '../../interfaces/company-document.interface';
 import {AlertsService} from '../../../../core/services/alerts.service';
+import {MessageModule} from 'primeng/message';
 
 @Component({
     selector: 'app-companies-files',
@@ -18,7 +19,8 @@ import {AlertsService} from '../../../../core/services/alerts.service';
         ButtonModule,
         FileUploadModule,
         DatePipe,
-        TooltipModule
+        TooltipModule,
+        MessageModule
     ],
     templateUrl: './companies-files.component.html',
     styleUrl: './companies-files.component.scss'
