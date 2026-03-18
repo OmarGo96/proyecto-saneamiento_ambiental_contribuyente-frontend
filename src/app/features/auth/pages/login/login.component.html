@@ -1,37 +1,56 @@
-<div class="relative w-full h-full overflow-hidden">
+<div class="relative w-full min-h-screen overflow-hidden">
     <!-- Fondo con imagen -->
-    <div class="absolute inset-0 bg-[#99825D] bg-cover bg-no-repeat bg-center"></div>
+    <div class="absolute inset-0 bg-login bg-cover bg-no-repeat bg-center"></div>
 
     <!-- Overlay oscuro -->
-    <!--<div class="absolute inset-0 bg-black/60"></div>-->
+    <div class="absolute inset-0 bg-black/60"></div>
 
     <!-- Contenido encima -->
-    <div class="relative z-10 flex flex-col justify-center items-center w-full h-full">
-        <div class="w-1/2 p-3 rounded-3xl bg-white shadow-lg">
-            <div class="grid grid-cols-2">
-                <div class="p-16 space-y-5 md:p-6">
-
-                    <div>
-                        <h3 class="text-3xl font-bold primary-color-text">Bienvenido contribuyente</h3>
-                        <p class="font-normal text-stone-600">Ingresa tus credenciales</p>
+    <div class="relative z-10 flex flex-col justify-center items-center w-full h-full min-h-screen p-4 sm:p-6 md:p-8">
+        <div class="w-full max-w-md md:max-w-2xl lg:max-w-4xl p-3 rounded-2xl md:rounded-3xl bg-white shadow-lg">
+            <div class="flex flex-col md:flex-row md:min-h-[400px]">
+                <!-- Formulario de login -->
+                <div class="w-full md:w-1/2 p-6 space-y-5 order-2 md:order-1">
+                    <!-- Logo visible solo en móvil -->
+                    <div class="flex justify-center md:hidden mb-4">
+                        <img [src]="logo" class="w-52 sm:w-40" alt="Logo">
                     </div>
 
-                    <form [formGroup]="loginForm" class="space-y-3">
-                        <div>
-                            <label>Correo electrónico</label>
-                            <input type="text" pInputText formControlName="email"/>
+                    <div class="text-center md:text-left">
+                        <h3 class="text-2xl sm:text-3xl font-bold">Bienvenido de nuevo</h3>
+                        <p class="font-normal text-sm sm:text-base">Ingresa tus credenciales</p>
+                    </div>
+
+                    <form [formGroup]="loginForm" class="space-y-4">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-medium">Correo electrónico</label>
+                            <input
+                                type="email"
+                                pInputText
+                                formControlName="email"
+                                class="w-full"
+                                placeholder="ejemplo@correo.com"
+                            />
                         </div>
-                        <div>
-                            <label>Contraseña</label>
-                            <p-password [feedback]="false" [toggleMask]="true" formControlName="password"/>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-medium">Contraseña</label>
+                            <p-password
+                                [feedback]="false"
+                                [toggleMask]="true"
+                                formControlName="password"
+                                styleClass="w-full"
+                                [inputStyleClass]="'w-full'"
+                                placeholder="Ingresa tu contraseña"
+                            />
                         </div>
                         <p-button
                             type="submit"
                             label="Iniciar sesión"
                             icon="pi pi-sign-in"
-                            class="p-login-button"
+                            class="p-login-button w-full"
                             (click)="onLogin()"
                             [loading]="isLoading"
+                            [disabled]="loginForm.invalid || isLoading"
                         />
                     </form>
 
@@ -40,36 +59,48 @@
                         label="Registrarse"
                         icon="pi pi-user"
                         [outlined]="true"
-                        class="p-login-button"
+                        class="p-login-button w-full"
                     />
 
-                    <div class="flex justify-between">
+                    <div class="flex flex-col sm:flex-row justify-between gap-2 sm:gap-4">
                         <p-button
                             [routerLink]="['/auth/restaurar']"
                             label="Restaurar cuenta"
                             variant="text"
                             severity="contrast"
+                            styleClass="text-sm"
                         />
-                        <a href="https://www.youtube.com/watch?v=unUyCpJOgAg"
-                           pButton target="_blank" severity="info"
-                           text>
+                        <a
+                            href="https://www.youtube.com/watch?v=unUyCpJOgAg"
+                            pButton
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            severity="info"
+                            text
+                            class="text-sm"
+                        >
                             <span pButtonLabel>Ver video tutorial</span>
                         </a>
                     </div>
                 </div>
-                <div class="relative w-full h-full rounded-2xl overflow-hidden">
+
+                <!-- Panel lateral con logo (oculto en móvil) -->
+                <div class="hidden md:block md:w-1/2 relative rounded-2xl overflow-hidden order-1 md:order-2">
                     <!-- Fondo con imagen -->
-                    <div class="absolute inset-0 bg-[#D6D1CA] bg-cover bg-no-repeat bg-center"></div>
+                    <div class="absolute inset-0 bg-zinc-200 bg-cover bg-no-repeat bg-center"></div>
 
                     <!-- Contenido encima -->
-                    <div class="relative z-10 flex flex-col justify-center items-center w-full h-full">
-                        <img src="isotipo-playa-del-carmen.png" class="mx-auto w-1/2">
-                        <!--<span class="primary-color-text">Project Name (if required)</span>-->
+                    <div class="relative z-10 flex flex-col justify-center items-center w-full h-full min-h-[200px]">
+                        <img [src]="logo" class="mx-auto w-1/2 lg:w-96" alt="Logo">
+                        @if (projectName) {
+                            <span class="text-center text-primary text-lg">{{ projectName }}</span>
+                            <span class="text-center text-secondary">Contribuyentes</span>
+                        }
                     </div>
                 </div>
             </div>
         </div>
 
-        <p class="text-white mt-3">&#64; {{ currentYear }} H. Ayuntamiento de Playa del Carmen</p>
+        <p class="text-white text-center text-xs sm:text-sm mt-4">&#64; {{ currentYear }} H. Ayuntamiento de Playa del Carmen</p>
     </div>
 </div>

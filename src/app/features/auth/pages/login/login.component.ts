@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {SessionService} from '../../../../core/services/session.service';
 import {AlertsService} from '../../../../core/services/alerts.service';
 import {Router, RouterLink} from '@angular/router';
@@ -11,6 +11,7 @@ import {ConfirmationService} from 'primeng/api';
 
 @Component({
     selector: 'app-login',
+    standalone: true,
     imports: [
         ReactiveFormsModule,
         InputTextModule,
@@ -32,6 +33,9 @@ export class LoginComponent implements OnInit {
 
     public currentYear = moment().format('YYYY');
 
+
+    public logo = '/logo.png';
+    public projectName = 'Declaración de Saneamiento Ambiental';
     public isLoading = false;
 
     ngOnInit() {
@@ -46,6 +50,11 @@ export class LoginComponent implements OnInit {
     }
 
     onLogin() {
+        if (this.loginForm.invalid) {
+            this.loginForm.markAllAsTouched();
+            return;
+        }
+
         this.isLoading = true;
         const data = this.loginForm.value;
 
@@ -63,7 +72,8 @@ export class LoginComponent implements OnInit {
             },
             error: err => {
                 this.isLoading = false;
-                this.alertsService.errorAlert(err.error.errors);
+                const errorMessage = err?.error?.errors || 'Error al iniciar sesión';
+                this.alertsService.errorAlert(errorMessage);
             }
         })
     }
