@@ -145,7 +145,7 @@ export class DeclarationsListComponent implements OnInit, OnDestroy {
         const jsonString = JSON.stringify(declaration);
         const utf8Bytes = new TextEncoder().encode(jsonString);
         const base64String = btoa(String.fromCharCode(...utf8Bytes));
-        
+
         localStorage.setItem(
             this.declarationsService.declarationToken,
             base64String,
