@@ -1,39 +1,61 @@
-
-
 <nav class="bg-white border-gray-200 shadow">
     <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 py-2 sm:py-0">
-        <a href="https://flowbite.com" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <a [routerLink]="['/auth/login']" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="logo.png" class="w-40 sm:w-64" alt="Logo"/>
         </a>
-
         <p-button label="Inicio" icon="pi pi-home" [routerLink]="['/auth/login']" styleClass="text-sm sm:text-base" />
     </div>
 </nav>
+
 <div class="w-[calc(100%-2rem)] sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 mx-auto space-y-4 sm:space-y-5 mt-8 sm:mt-16 lg:mt-32 border rounded-xl p-4 sm:p-5">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
         <div class="text-center sm:text-left">
-            <h3 class="text-lg sm:text-xl font-semibold">Restauración de mi cuenta</h3>
-            <p class="text-sm text-slate-500">Ingresa tu correo electrónico</p>
+            <h3 class="text-lg sm:text-xl font-semibold">Nueva contraseña</h3>
+            <p class="text-sm text-slate-500">Ingresa y confirma tu nueva contraseña</p>
         </div>
         <img src="isotipo-playa-del-carmen.png" class="w-16 sm:w-24 order-first sm:order-last" alt="Isotipo">
     </div>
+
     <form [formGroup]="recoveryForm" class="w-full space-y-4 sm:space-y-5">
         <div class="flex flex-col gap-1">
-            <label class="font-medium text-sm">Correo electrónico</label>
-            <input type="email" pInputText formControlName="email" class="w-full" />
+            <label class="font-medium text-sm">Nueva contraseña</label>
+            <p-password
+                formControlName="password"
+                [feedback]="false"
+                [toggleMask]="true"
+                styleClass="w-full"
+                inputStyleClass="w-full"
+                placeholder="Mínimo 8 caracteres"
+            />
+            @if (recoveryForm.get('password')?.invalid && recoveryForm.get('password')?.touched) {
+                <small class="text-red-500">La contraseña debe tener al menos 8 caracteres.</small>
+            }
         </div>
 
+        <div class="flex flex-col gap-1">
+            <label class="font-medium text-sm">Confirmar contraseña</label>
+            <p-password
+                formControlName="passwordConfirm"
+                [feedback]="false"
+                [toggleMask]="true"
+                styleClass="w-full"
+                inputStyleClass="w-full"
+                placeholder="Repite tu contraseña"
+            />
+            @if (recoveryForm.errors?.['passwordsMismatch'] && recoveryForm.get('passwordConfirm')?.touched) {
+                <small class="text-red-500">Las contraseñas no coinciden.</small>
+            }
+        </div>
 
         <div>
             <p-button
-                (click)="recoveryAccount()"
+                (click)="onSubmit()"
                 [disabled]="isLoading"
                 [loading]="isLoading"
-                label="Restaurar mi cuenta"
+                label="Guardar nueva contraseña"
                 severity="contrast"
                 styleClass="w-full sm:w-auto"
             />
         </div>
     </form>
 </div>
-
