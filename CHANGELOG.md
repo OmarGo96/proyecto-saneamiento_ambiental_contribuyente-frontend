@@ -1,5 +1,52 @@
 # Changelog - Welcome Popup Dialog
 
+## [1.1.0] - 2026-04-02
+
+### ✨ Nuevas Funcionalidades
+
+#### Componente RecoveryComponent (nueva página)
+- Nueva página en `/auth/recuperar-cuenta/:token` para restablecer contraseña
+- Lee el token desde la URL mediante `ActivatedRoute`
+- Formulario con campos `password` y `passwordConfirm` con validación de coincidencia
+- Envía `{ token, password }` al endpoint `users/restore` via `UsersService.restoreAccount()`
+- Redirige a `/auth/login` tras éxito
+
+### 🔧 Cambios Técnicos
+
+#### Renombrado: RecoveryComponent → RestoreComponent
+- Carpeta `pages/recovery/` renombrada a `pages/restore/`
+- Archivos renombrados a `restore.component.{ts,html,scss}`
+- Clase `RecoveryComponent` renombrada a `RestoreComponent`
+- Selector cambiado de `app-recovery` a `app-restore`
+
+#### Fix: baseHref en producción
+- Configurado `"baseHref": "/contribuyente/"` en la configuración `production` de `angular.json`
+- Ruta del logo cambiada de `/logo.png` a `logo.png` (relativa) para respetar el base href
+
+### 📝 Archivos Modificados
+
+1. **src/app/features/auth/auth.routes.ts**
+   - Import y ruta de `RestoreComponent` (ex `RecoveryComponent`)
+   - Nueva ruta `recuperar-cuenta/:token` apuntando a `RecoveryComponent`
+
+2. **src/app/features/auth/pages/restore/** *(renombrado desde recovery/)*
+   - `restore.component.ts` — clase, selector y referencias actualizadas
+   - `restore.component.html`
+   - `restore.component.scss`
+
+3. **src/app/features/auth/pages/recovery/** *(nuevo)*
+   - `recovery.component.ts`
+   - `recovery.component.html`
+   - `recovery.component.scss`
+
+4. **src/app/features/auth/pages/login/login.component.ts**
+   - Ruta del logo corregida a relativa (`logo.png`)
+
+5. **angular.json**
+   - `baseHref: /contribuyente/` añadido a la configuración `production`
+
+---
+
 ## [1.0.0] - 2026-02-01
 
 ### ✨ Nuevas Funcionalidades

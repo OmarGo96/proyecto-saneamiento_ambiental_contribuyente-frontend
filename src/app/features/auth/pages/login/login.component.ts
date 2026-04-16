@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     public currentYear = moment().format('YYYY');
 
 
-    public logo = '/logo.png';
+    public logo = 'logo.png';
     public projectName = 'Declaración de Saneamiento Ambiental';
     public isLoading = false;
 

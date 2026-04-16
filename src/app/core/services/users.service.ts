@@ -26,4 +26,8 @@ export class UsersService {
     recoveryAccount(data: any): Observable<any> {
         return this.httpClient.post(`${this.url}/users/recovery-account`, data);
     }
+
+    restoreAccount(data: any): Observable<any> {
+        return this.httpClient.post(`${this.url}/users/restore`, data);
+    }
 }
