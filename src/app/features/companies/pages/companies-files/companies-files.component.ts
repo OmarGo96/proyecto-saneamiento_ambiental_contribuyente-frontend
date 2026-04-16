@@ -183,14 +183,25 @@ export class CompaniesFilesComponent implements OnInit {
             return;
         }
 
-        // Normalizar el nombre del tipo de documento para la URL
-        // Convertir a slug: minúsculas, sin espacios, sin acentos
-        const documentType = document.type_document_name
+        // Mapear el nombre del tipo de documento al valor esperado por el backend
+        const documentTypeMap: Record<string, string> = {
+            'acta constitutiva': 'actas',
+            'poder notarial': 'notariales',
+            'constancia de situacion fiscal': 'constancias',
+            'licencia de funcionamiento': 'licencias_funcionamiento',
+        };
+
+        const normalizedName = document.type_document_name
             .toLowerCase()
             .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '') // Eliminar acentos
-            .replace(/\s+/g, '-') // Reemplazar espacios con guiones
-            .replace(/[()]/g, ''); // Eliminar paréntesis
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[()]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+
+        const documentType = Object.entries(documentTypeMap).find(([key]) =>
+            normalizedName.includes(key)
+        )?.[1] ?? (normalizedName.includes('identificac') ? 'identificaciones' : normalizedName);
 
         this.spinner.show();
 
@@ -221,6 +232,12 @@ export class CompaniesFilesComponent implements OnInit {
                 this.alertsService.errorAlert(errorMessage);
             }
         });
+    }
+
+    canReplaceDocument(document: CompanyDocument): boolean {
+        if (!document.uuid || !document.status) return false;
+        const status = document.status.toLowerCase();
+        return status === 'rechazado' || status === 'rejected' || status === 'pendiente' || status === 'pending';
     }
 
     public openAddCompaniesDocumentationDialog() {

@@ -106,8 +106,8 @@
                                         }
                                     </div>
 
-                                    <!-- Reemplazo de documento - Solo visible si está rechazado -->
-                                    @if (document.status === 'rechazado') {
+                                    <!-- Reemplazo de documento - Visible si está rechazado o pendiente -->
+                                    @if (canReplaceDocument(document)) {
                                         <div class="space-y-5 pt-2 border-t border-gray-200">
                                             <div class="flex items-center gap-2">
                                                 <p-fileupload
