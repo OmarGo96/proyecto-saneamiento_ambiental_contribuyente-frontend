@@ -1,6 +1,6 @@
 <div class="relative w-full min-h-screen overflow-hidden">
     <!-- Fondo con imagen -->
-    <div class="absolute inset-0 bg-login bg-cover bg-no-repeat bg-center"></div>
+    <div class="absolute inset-0 bg-cover bg-no-repeat bg-center" [style.background-image]="bgImageUrl"></div>
 
     <!-- Overlay oscuro -->
     <div class="absolute inset-0 bg-black/60"></div>
@@ -42,6 +42,14 @@
                                 [inputStyleClass]="'w-full'"
                                 placeholder="Ingresa tu contraseña"
                             />
+                            @if (loginForm.get('password')?.hasError('minlength') && loginForm.get('password')?.touched) {
+                                <small class="text-orange-600 text-xs leading-tight">
+                                    Por cuestiones de seguridad, la contraseña debe contar con al menos 8 caracteres.
+                                    Si tu contraseña actual no cumple con este requisito, da clic en
+                                    <a routerLink="/auth/restaurar" class="font-semibold underline">Restaurar cuenta</a>
+                                    para generar una nueva.
+                                </small>
+                            }
                         </div>
                         <p-button
                             type="submit"

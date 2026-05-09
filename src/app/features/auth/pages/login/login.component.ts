@@ -8,6 +8,7 @@ import {PasswordModule} from 'primeng/password';
 import {ButtonModule} from 'primeng/button';
 import moment from 'moment';
 import {ConfirmationService} from 'primeng/api';
+import {DOCUMENT} from '@angular/common';
 
 @Component({
     selector: 'app-login',
@@ -34,9 +35,12 @@ export class LoginComponent implements OnInit {
     public currentYear = moment().format('YYYY');
 
 
+    private doc = inject(DOCUMENT);
+
     public logo = 'logo.png';
     public projectName = 'Declaración de Saneamiento Ambiental';
     public isLoading = false;
+    public bgImageUrl = `url('${this.doc.baseURI}dsa-playa-del-carmen.jpg')`;
 
     ngOnInit() {
         this.initLoginForm();

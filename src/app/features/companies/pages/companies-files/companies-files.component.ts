@@ -1,8 +1,8 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
+import {DatePipe, Location} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
 import {FileUploadModule} from 'primeng/fileupload';
 import {TooltipModule} from 'primeng/tooltip';
-import {DatePipe} from '@angular/common';
 import {CompaniesService} from '../../services/companies.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
@@ -29,6 +29,7 @@ export class CompaniesFilesComponent implements OnInit {
 
     @Input() companyUuid: any;
 
+    private location = inject(Location);
     private companiesService = inject(CompaniesService);
     private spinner = inject(NgxSpinnerService);
     private dialogService = inject(DialogService);
@@ -38,6 +39,10 @@ export class CompaniesFilesComponent implements OnInit {
     public documents: CompanyDocument[] = [];
     public selectedFiles = new Map<string, File>();
     public replacementFiles = new Map<string, File>();
+
+    goBack() {
+        this.location.back();
+    }
 
     ngOnInit() {
         this.getCompaniesFiles();
