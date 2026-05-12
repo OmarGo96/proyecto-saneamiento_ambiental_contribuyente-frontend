@@ -9,6 +9,8 @@ import {ButtonModule} from 'primeng/button';
 import {AvatarModule} from 'primeng/avatar';
 import {StyleClass} from 'primeng/styleclass';
 import {NgClass} from '@angular/common';
+import {MenuModule} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
 
 @Component({
     selector: 'app-sidebar',
@@ -19,7 +21,8 @@ import {NgClass} from '@angular/common';
         RouterLinkActive,
         DrawerModule,
         ButtonModule,
-        AvatarModule
+        AvatarModule,
+        MenuModule
     ],
     templateUrl: './sidebar.component.html',
     styleUrl: './sidebar.component.scss'
@@ -34,6 +37,18 @@ export class SidebarComponent implements OnInit {
     public profile: any;
 
     public activeItem: any;
+    public manualesItems: MenuItem[] | undefined;
+    public showManualesMenu = false;
+
+    // Estructura escalable para manuales
+    private manuales = [
+        {
+            nombre: 'Boveda de Documentos',
+            archivo: 'Boveda de Documentos .pdf',
+            icono: 'pi pi-file-pdf'
+        }
+        // Aquí se pueden agregar más manuales en el futuro
+    ];
 
     ngOnInit() {
 
@@ -55,10 +70,32 @@ export class SidebarComponent implements OnInit {
                 this.menu[i].module = this.menu[i].values[j].module;
             }
         }
+
+        // Generar dinámicamente el menú de manuales
+        this.manualesItems = this.manuales.map(manual => ({
+            label: manual.nombre,
+            icon: manual.icono,
+            command: () => this.descargarManual(manual.archivo)
+        }));
     }
 
     toggle(itemName: string) {
         console.log(itemName);
         this.activeItem = this.activeItem === itemName ? null : itemName;
+    }
+
+    toggleManuales(event: Event, value: any) {
+        if (value.isDropdown) {
+            event.preventDefault();
+            this.showManualesMenu = !this.showManualesMenu;
+        }
+    }
+
+    descargarManual(nombreArchivo: string): void {
+        const link = document.createElement('a');
+        link.href = `pdfs/${nombreArchivo}`;
+        link.download = nombreArchivo;
+        link.click();
+        this.showManualesMenu = false;
     }
 }

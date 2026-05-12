@@ -28,6 +28,17 @@ export const MenuItems = [
         icon: 'pi-users',
         class: '',
         role: []
+    },
+    {
+        path: '',
+        group: 'Manuales',
+        module: 'manuales',
+        action: 'show',
+        title: 'Manuales',
+        icon: 'pi-book',
+        class: '',
+        role: [],
+        isDropdown: true
     }
 
 ];

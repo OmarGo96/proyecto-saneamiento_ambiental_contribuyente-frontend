@@ -7,11 +7,35 @@
                 @for (value of item.values; track value) {
                     <!-- Se debe agregar el modulo de permisos *appPermissionModule="{module: value.module, action: value.action}"-->
                     <li>
-                        <a [routerLink]="[value.path]" [routerLinkActive]="['bg-[#7d6b4b]']"
-                           class="flex items-center p-2 text-white rounded-lg group">
-                            <i class="pi {{value.icon}}"></i>
-                            <span class="ms-3">{{ value.title }}</span>
-                        </a>
+                        @if (value.isDropdown) {
+                            <!-- Item con menú desplegable -->
+                            <a (click)="toggleManuales($event, value)"
+                               class="flex items-center p-2 text-white rounded-lg group cursor-pointer hover:bg-[#7d6b4b]">
+                                <i class="pi {{value.icon}}"></i>
+                                <span class="ms-3">{{ value.title }}</span>
+                                <i class="pi ml-auto" [class]="showManualesMenu ? 'pi-chevron-down' : 'pi-chevron-right'"></i>
+                            </a>
+                            @if (showManualesMenu) {
+                                <ul class="ml-6 mt-1 space-y-1">
+                                    @for (manual of manualesItems; track manual) {
+                                        <li>
+                                            <a (click)="manual.command && manual.command({})"
+                                               class="flex items-center p-2 text-white rounded-lg group cursor-pointer hover:bg-[#7d6b4b]">
+                                                <i class="pi {{manual.icon}} text-sm"></i>
+                                                <span class="ms-2 text-sm">{{ manual.label }}</span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        } @else {
+                            <!-- Item normal con navegación -->
+                            <a [routerLink]="[value.path]" [routerLinkActive]="['bg-[#7d6b4b]']"
+                               class="flex items-center p-2 text-white rounded-lg group">
+                                <i class="pi {{value.icon}}"></i>
+                                <span class="ms-3">{{ value.title }}</span>
+                            </a>
+                        }
                     </li>
                 }
             </ul>
