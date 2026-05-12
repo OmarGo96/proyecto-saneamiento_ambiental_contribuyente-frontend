@@ -11,7 +11,7 @@
                 </button>
                 <ng-content></ng-content>
                 <a href="" class="flex ms-2 md:me-24">
-                    <img src="logo.png" class="h-16 me-3"/>
+                    <img src="/images/logo.png" class="h-16 me-3"/>
                 </a>
             </div>
             <div class="flex items-center">
@@ -25,6 +25,16 @@
                     tooltipPosition="bottom"
                     class="mr-2"
                 />
+                <p-button
+                    (click)="menuManuales.toggle($event)"
+                    icon="pi pi-book"
+                    [rounded]="true"
+                    severity="info"
+                    [text]="true"
+                    pTooltip="Descargar manuales"
+                    tooltipPosition="bottom"
+                    class="mr-2"
+                />
                 <div class="flex items-center ms-3">
                     <p-button (click)="menu.toggle($event)" icon="pi pi-user" [rounded]="true" severity="secondary" />
                 </div>
@@ -33,3 +43,4 @@
     </div>
 </nav>
 <p-menu #menu [model]="items" [popup]="true" />
+<p-menu #menuManuales [model]="manualesItems" [popup]="true" />

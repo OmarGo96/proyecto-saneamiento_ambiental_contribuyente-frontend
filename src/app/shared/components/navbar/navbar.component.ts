@@ -21,6 +21,22 @@ export class NavbarComponent implements OnInit {
     private welcomePopupService = inject(WelcomePopupService);
     private viewContainerRef = inject(ViewContainerRef);
     public items: MenuItem[] | undefined;
+    public manualesItems: MenuItem[] | undefined;
+
+    // Estructura escalable para manuales
+    private manuales = [
+        {
+            nombre: 'Boveda de Documentos',
+            archivo: 'Boveda de Documentos .pdf',
+            icono: 'pi pi-file-pdf'
+        }
+        // Aquí se pueden agregar más manuales en el futuro:
+        // {
+        //     nombre: 'Manual de Usuario',
+        //     archivo: 'Manual de Usuario.pdf',
+        //     icono: 'pi pi-file-pdf'
+        // }
+    ];
 
     public toggleSidebar = output<void>();
 
@@ -40,6 +56,18 @@ export class NavbarComponent implements OnInit {
                 ]
             }
         ];
+
+        // Generar dinámicamente el menú de manuales
+        this.manualesItems = [
+            {
+                label: 'Manuales',
+                items: this.manuales.map(manual => ({
+                    label: manual.nombre,
+                    icon: manual.icono,
+                    command: () => this.descargarManual(manual.archivo)
+                }))
+            }
+        ];
     }
 
     mostrarAvisos(): void {
@@ -48,5 +76,12 @@ export class NavbarComponent implements OnInit {
 
     onToggleSidebar() {
         this.toggleSidebar.emit();
+    }
+
+    descargarManual(nombreArchivo: string): void {
+        const link = document.createElement('a');
+        link.href = `pdfs/${nombreArchivo}`;
+        link.download = nombreArchivo;
+        link.click();
     }
 }

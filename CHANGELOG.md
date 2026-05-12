@@ -1,5 +1,51 @@
 # Changelog - Welcome Popup Dialog
 
+## [1.2.0] - 2026-05-12
+
+### ✨ Nuevas Funcionalidades
+
+#### Sistema de Manuales en Navbar
+- Agregado botón de "Manuales" en la barra de navegación con icono de libro (`pi-book`)
+- Sistema escalable para gestionar múltiples manuales de descarga
+- Menú desplegable que se genera dinámicamente desde un array de configuración
+- Ubicado entre el botón de avisos y el menú de usuario
+- Incluye tooltip "Descargar manuales"
+- Estilo info (`severity="info"`) para distinguirlo visualmente
+
+#### Descarga de Manuales
+- Implementada funcionalidad de descarga de PDFs desde `public/pdfs/`
+- Primer manual disponible: "Boveda de Documentos.pdf"
+- Sistema preparado para agregar más manuales fácilmente
+
+### 🔧 Cambios Técnicos
+
+#### Navbar Component
+- Agregado array `manuales` con estructura escalable para gestionar documentos:
+  ```typescript
+  {
+    nombre: string,
+    archivo: string,
+    icono: string
+  }
+  ```
+- Nuevo menú `manualesItems` generado dinámicamente mediante `map()`
+- Método `descargarManual()` para gestionar la descarga de archivos PDF
+- Segundo menú popup (`#menuManuales`) agregado al template
+
+### 📝 Archivos Modificados
+
+1. **src/app/shared/components/navbar/navbar.component.html**
+   - Agregado botón de manuales con evento click
+   - Agregado segundo menú popup para manuales
+
+2. **src/app/shared/components/navbar/navbar.component.ts**
+   - Array `manuales` con estructura de datos
+   - Propiedad `manualesItems` para el menú
+   - Método `descargarManual()` para descarga de PDFs
+   - Generación dinámica del menú en `ngOnInit()`
+
+---
+
 ## [1.1.0] - 2026-04-02
 
 ### ✨ Nuevas Funcionalidades
@@ -21,7 +67,7 @@
 
 #### Fix: baseHref en producción
 - Configurado `"baseHref": "/contribuyente/"` en la configuración `production` de `angular.json`
-- Ruta del logo cambiada de `/logo.png` a `logo.png` (relativa) para respetar el base href
+- Ruta del logo cambiada de `//images/logo.png` a `/images/logo.png` (relativa) para respetar el base href
 
 ### 📝 Archivos Modificados
 
@@ -40,7 +86,7 @@
    - `recovery.component.scss`
 
 4. **src/app/features/auth/pages/login/login.component.ts**
-   - Ruta del logo corregida a relativa (`logo.png`)
+   - Ruta del logo corregida a relativa (`/images/logo.png`)
 
 5. **angular.json**
    - `baseHref: /contribuyente/` añadido a la configuración `production`

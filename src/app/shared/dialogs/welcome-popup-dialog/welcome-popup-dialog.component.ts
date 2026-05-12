@@ -25,18 +25,18 @@ export class WelcomePopupDialogComponent {
     anuncios: Anuncio[] = [
         {
             id: 1,
-            imagen: 'comunicado-mural-dsa.jpg',
-            titulo: 'Recuerda presentar tu declaración',
+            imagen: 'images/actualizacion-documentos.jpeg',
+            titulo: 'Recuerda actualizar tus documentos',
             descripcion:
-                'Recuerda presentar tu declaración correspondiente al mes de enero.',
-        },
+                'Recuerda actualizar tus documentos correspondientes al año actual.',
+        }/* ,
         {
             id: 2,
             imagen: 'actualizacion-uma-2026.jpg',
             titulo: 'Actualización del valor UMA',
             descripcion:
                 'Actualización del valor UMA a partir del 1° Febrero 2026',
-        }
+        } */
     ];
 
     ngOnInit(): void {}

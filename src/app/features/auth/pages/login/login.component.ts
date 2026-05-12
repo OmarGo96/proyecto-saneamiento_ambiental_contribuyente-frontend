@@ -37,10 +37,10 @@ export class LoginComponent implements OnInit {
 
     private doc = inject(DOCUMENT);
 
-    public logo = 'logo.png';
+    public logo = `${this.doc.baseURI}images/logo.png`;
     public projectName = 'Declaración de Saneamiento Ambiental';
     public isLoading = false;
-    public bgImageUrl = `url('${this.doc.baseURI}dsa-playa-del-carmen.jpg')`;
+    public bgImageUrl = `url('${this.doc.baseURI}images/dsa-playa-del-carmen.jpg')`;
 
     ngOnInit() {
         this.initLoginForm();
