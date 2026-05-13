@@ -194,6 +194,7 @@ export class CompaniesFilesComponent implements OnInit {
             'poder notarial': 'notariales',
             'constancia de situacion fiscal': 'constancias',
             'licencia de funcionamiento': 'licencias_funcionamiento',
+            'licencia estatal': 'licencias_estatales',
         };
 
         const normalizedName = document.type_document_name
